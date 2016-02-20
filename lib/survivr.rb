@@ -34,13 +34,17 @@ def phase_one
 end
 
 def phase_two
+	immunes = []
 	3.times do |iteration|
 	  winning_member = @borneo.individual_immunity_challenge
+	  immunes.push(winning_member)
+
 	  not_immune_members = @merge_tribe.members.select { |member| member != winning_member }
 	  delete_index = rand(not_immune_members.length)
 	  not_immune_members.delete_at(delete_index)
-	  @merge_tribe.members = not_immune_members + [winning_member]
+	  @merge_tribe.members = not_immune_members
 	end
+	@merge_tribe.members += immunes
 end
 
 def phase_three
