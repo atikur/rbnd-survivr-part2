@@ -4,7 +4,7 @@ class Tribe
   def initialize(options={})
   	@name = options[:name]
   	@members = options[:members]
-  	puts "Creating new tribe: #{@name}"
+  	puts "Creating new tribe: " + "#{@name}".red
   end
 
   def to_s

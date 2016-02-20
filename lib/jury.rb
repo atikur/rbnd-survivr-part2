@@ -19,7 +19,7 @@ class Jury
   	  else
   	  	votes[finalists[1]] += 1
   	  end
-  	  puts "vote by member #{i}"
+  	  puts "Voting: " + "#{@members[i]}".yellow
   	end
 
   	votes
@@ -27,7 +27,7 @@ class Jury
 
   def report_votes(votes)
   	votes.each do |key, val|
-  	  puts "#{key} - #{val}"
+  	  puts "#{key} - #{val}".green
   	end
   end
 

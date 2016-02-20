@@ -24,6 +24,8 @@ class Game
   end
 
   def individual_immunity_challenge
-  	merge("combined_tribe").members.sample
+    members = []
+    @tribes.each { |tribe| members += tribe.members }
+  	members.sample
   end
 end
