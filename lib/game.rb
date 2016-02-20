@@ -19,7 +19,7 @@ class Game
 
   def merge(name)
   	members = []
-	@tribes.each { |tribe| members += tribe.members }
+	  @tribes.each { |tribe| members += tribe.members }
   	Tribe.new({name: name, members: members})
   end
 
