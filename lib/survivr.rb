@@ -6,7 +6,7 @@ require "colorizr"
 
 #After your tests pass, uncomment this code below
 #=========================================================
-# Create an array of twenty hopefuls to compete on the island of Borneo
+#Create an array of twenty hopefuls to compete on the island of Borneo
 @contestants = %w(carlos walter aparna trinh diego juliana poornima juha sofia julia fernando dena orit colt zhalisa farrin muhammed ari rasha gauri)
 @contestants.map!{ |contestant| Contestant.new(contestant) }.shuffle!
 
@@ -22,39 +22,20 @@ require "colorizr"
 #This is where you will write your code for the three phases
 def phase_one
 	8.times do |iteration|
-	  winning_tribe = @borneo.immunity_challenge
-	  if winning_tribe.name == @hunapu.name
-	  	index = rand(@coyopa.members.length)
-	  	@coyopa.members.delete_at(index)
-	  else
-	  	index = rand(@hunapu.members.length)
-	  	@hunapu.members.delete_at(index)
-	  end
+	  losing_tribe = @borneo.immunity_challenge
+	  losing_tribe.tribal_council(losing_tribe.members.sample)
 	end
 end
 
 def phase_two
-	immunes = []
 	3.times do |iteration|
-	  winning_member = @borneo.individual_immunity_challenge
-	  immunes.push(winning_member)
-
-	  not_immune_members = @merge_tribe.members.select { |member| member != winning_member }
-	  delete_index = rand(not_immune_members.length)
-	  not_immune_members.delete_at(delete_index)
-	  @merge_tribe.members = not_immune_members
+		@merge_tribe.tribal_council(@borneo.individual_immunity_challenge)
 	end
-	@merge_tribe.members += immunes
 end
 
 def phase_three
 	7.times do |iteration|
-	  winning_member = @borneo.individual_immunity_challenge
-	  not_immune_members = @merge_tribe.members.select { |member| member != winning_member }
-	  delete_index = rand(not_immune_members.length)
-	  @jury.members.push(not_immune_members[delete_index])
-	  not_immune_members.delete_at(delete_index)
-	  @merge_tribe.members = not_immune_members + [winning_member]
+		@jury.members.push(@merge_tribe.tribal_council(@borneo.individual_immunity_challenge))
 	end
 end
 
